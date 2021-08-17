@@ -4,8 +4,7 @@ import { SortBy, SortOrder } from "./camunda.enum";
 export default class CamundaRoutes{
   static BaseURL: string = String(process.env.REACT_APP_BASE_URL);
 
-  static getProcessInstancePath(sortBy: string = SortBy.StartTime, sortOrder: string = SortOrder.Descending) {
-    console.log('getProcessInstancePath', process.env);
+  static getProcessInstancePath(orderId: string = '', sortBy: SortBy = SortBy.StartTime, sortOrder: SortOrder = SortOrder.Descending) {
     return `${this.BaseURL}/engine-rest/history/process-instance?sortBy=${sortBy}&sortOrder=${sortOrder}`;
   }
 
