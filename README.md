@@ -12,7 +12,7 @@ In the project directory, you can run:
 
 Create a .env file in your root folder and configure your base endpoint like the example below:
 
-### REACT_APP_BASE_URL = 'http://myapi.endpoint'
+### `REACT_APP_BASE_URL = 'http://myapi.endpoint'`
 
 And then run your project
 
