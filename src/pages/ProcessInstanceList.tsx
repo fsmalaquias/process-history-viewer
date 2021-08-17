@@ -5,7 +5,7 @@ import CamundaService from '../services/camunda.service';
 import Utils from "../utils/utils";
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import {
-  Link, Switch
+  Link
 } from "react-router-dom";
 import { SortBy, SortOrder } from '../services/camunda.enum';
 
@@ -16,9 +16,11 @@ interface SortOrderButtonInterface{
 
 const SortOrderButton = (props: SortOrderButtonInterface) => {
   const sortOrder = props.sortOrder;
+  // console.log('SortOrderButton', sortOrder);
+  //TODO: Check this logic
   return (
     <Button variant="light" size="sm" onClick={props.onClick}>
-      {sortOrder === SortOrder.Ascending ? <FaChevronUp /> : <FaChevronDown />}
+      {sortOrder === SortOrder.Descending ? <FaChevronUp /> : <FaChevronDown />}
     </Button>
   )
 }
@@ -32,39 +34,40 @@ export default function ProcessInstanceList(){
   const [sortOrderDuration, setSortOrderDuration] = useState(SortOrder.Descending);
 
   const toggleSortOrder = (_sortBy: SortBy) => {
-    // console.log(sortBy, orderBy);
     setSortBy(_sortBy);
-    switch (sortBy) {
+    switch (_sortBy) {
       case SortBy.StartTime: {
         setSortOrderStartTime(sortOrderStartTime === SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending);
         setSortOrder(sortOrderStartTime);
+        // console.log('toggleSortOrder.StartTime', sortBy, sortOrder, sortOrderStartTime);
         break;
       }
       case SortBy.EndTime: {
         setSortOrderEndTime(sortOrderEndTime === SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending);
         setSortOrder(sortOrderEndTime);
+        // console.log('toggleSortOrder.EndTime', sortBy, sortOrder, sortOrderEndTime);
         break;
       }
       case SortBy.Duration: {
         setSortOrderDuration(sortOrderDuration === SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending);
         setSortOrder(sortOrderDuration);
+        // console.log('toggleSortOrder.Duration', sortBy, sortOrder, sortOrderDuration);
         break;
       }
       default:
         break;
     }
-
-    console.log(sortBy, sortOrder);
     
   }
 
   useEffect(() => {
-    const getProcessInstance = async () => {
-      const resProcessInstance:any = await CamundaService.getProcessInstance('', sortBy, sortOrder);
+    const getProcessInstance = async (_sortBy: SortBy, _sortOrder: SortOrder) => {
+      console.log('getProcessInstance', _sortBy, _sortOrder);
+      const resProcessInstance:any = await CamundaService.getProcessInstance('', _sortBy, _sortOrder);
       setProcessList(resProcessInstance);
     }
 
-    getProcessInstance();
+    getProcessInstance(sortBy, sortOrder);
   }, [sortBy, sortOrder])
 
   return (
