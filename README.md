@@ -18,7 +18,6 @@ And then run your project
 
 ### `yarn start`
 
-
-## CORS
+## Warnings
 
 When you run it in localhost, maybe you will need add a CORS extension in your browser
