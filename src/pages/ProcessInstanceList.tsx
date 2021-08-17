@@ -29,7 +29,7 @@ export default function ProcessInstanceList(){
           <thead>
             <tr>
               <th>Process Instance ID</th>
-              <th>Order</th>
+              <th>Business Key</th>
               <th>Start</th>
               <th>End</th>
               <th>Duration</th>

@@ -13,3 +13,8 @@ In the project directory, you can run:
 And then
 
 ### `yarn start`
+
+
+## CORS
+
+When you run it in localhost, you will need add a CORS extension in your browser

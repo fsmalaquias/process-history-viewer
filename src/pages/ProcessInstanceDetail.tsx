@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Button, Col, Container, Row, Table } from 'react-bootstrap';
 import TopMenu from '../components/TopMenu';
 import CamundaService from '../services/camunda.service';
+import Utils from "../utils/utils";
 import {
   useParams,
   useHistory
@@ -29,7 +30,7 @@ export default function ProcessInstanceDetail(){
     console.log(id);
     getActivityList(id);
 
-  }, []);
+  }, [id]);
 
   return (
     <>
@@ -60,8 +61,8 @@ export default function ProcessInstanceDetail(){
                 <tr key={item.id}>
                   <td>{item.activityId}</td>
                   <td>{item.activityName}</td>
-                  <td>{item.startTime}</td>
-                  <td>{item.endTime}</td>
+                  <td>{Utils.formatDate(item.startTime)}</td>
+                  <td>{Utils.formatDate(item.endTime)}</td>
                   <td style={{textAlign: 'right'}}>{item.durationInMillis/1000}s</td>
                 </tr>
               )
