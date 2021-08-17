@@ -17,6 +17,8 @@ export default function ProcessInstanceList(){
       setProcessList(resProcessInstance);
     }
 
+    console.log(process.env);
+
     getProcessInstance();
   }, [])
 

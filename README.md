@@ -10,11 +10,15 @@ In the project directory, you can run:
 
 ### `yarn install`
 
-And then
+Create a .env file in your root folder and configure your base endpoint like the example below:
+
+### REACT_APP_BASE_URL = 'http://myapi.endpoint'
+
+And then run your project
 
 ### `yarn start`
 
 
 ## CORS
 
-When you run it in localhost, you will need add a CORS extension in your browser
+When you run it in localhost, maybe you will need add a CORS extension in your browser

@@ -1,11 +1,13 @@
-const BASE_URL = 'http://api.k8s.pontoslivelo.com.br/oms-orchestrator';
 
 export default class CamundaRoutes{
+  static BaseURL: string = String(process.env.REACT_APP_BASE_URL);
+
   static getProcessInstancePath() {
-    return `${BASE_URL}/engine-rest/history/process-instance`;
+    console.log('getProcessInstancePath', process.env);
+    return `${this.BaseURL}/engine-rest/history/process-instance`;
   }
 
   static getProcessInstanceActivityListPath(processInstanceId: string) {
-    return `${BASE_URL}/engine-rest/history/activity-instance?processInstanceId=${processInstanceId}&sortBy=startTime&sortOrder=asc`;
+    return `${this.BaseURL}/engine-rest/history/activity-instance?processInstanceId=${processInstanceId}&sortBy=startTime&sortOrder=asc`;
   }
 }
