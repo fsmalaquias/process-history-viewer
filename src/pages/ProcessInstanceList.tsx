@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Button, Container, Table } from 'react-bootstrap';
 import TopMenu from '../components/TopMenu';
 import CamundaService from '../services/camunda.service';
+import CamundaRoutes from '../services/camunda.routes';
 import Utils from "../utils/utils";
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import {
@@ -60,6 +61,16 @@ export default function ProcessInstanceList(){
     
   }
 
+  const getCustomDetailURL = (businessKey: string) => {
+    const detailUrl = CamundaRoutes.getCustomDetailURL(businessKey);
+    if(detailUrl){
+      return <a href={detailUrl} target="_blank" rel="noreferrer">{businessKey}</a>;
+    }
+    else{
+      return businessKey;
+    }
+  }
+
   useEffect(() => {
     const getProcessInstance = async (_sortBy: SortBy, _sortOrder: SortOrder) => {
       console.log('getProcessInstance', _sortBy, _sortOrder);
@@ -91,7 +102,7 @@ export default function ProcessInstanceList(){
               return (
                 <tr key={item.id}>
                   <td><Link to={`/${item.id}/${item.businessKey}`}>{item.id}</Link></td>
-                  <td>{item.businessKey}</td>
+                  <td>{getCustomDetailURL(item.businessKey)}</td>
                   <td>{Utils.formatDate(item.startTime)}</td>
                   <td>{Utils.formatDate(item.endTime)}</td>
                   <td style={{textAlign: 'right'}}>{item.durationInMillis/1000}s</td>
