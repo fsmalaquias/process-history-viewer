@@ -1,16 +1,21 @@
+import { ReactNotifications } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ProcessInstanceList from './pages/ProcessInstanceList';
 import ProcessInstanceDetail from './pages/ProcessInstanceDetail';
+import ProcessInstanceList from './pages/ProcessInstanceList';
 
 function App() {
   return (
-    <Router>
-       <Switch>
-		      <Route exact path="/" component={ProcessInstanceList}/>
-				  <Route exact path="/:id/:order" component={ProcessInstanceDetail}/>
-	    </Switch>
-    </Router>
+    <>
+      <ReactNotifications />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={ProcessInstanceList} />
+          <Route exact path="/:id/:order" component={ProcessInstanceDetail} />
+        </Switch>
+      </Router>
+    </>
   );
 }
 

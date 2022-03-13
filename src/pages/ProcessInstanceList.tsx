@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, Table } from 'react-bootstrap';
-import TopMenu from '../components/TopMenu';
-import CamundaService from '../services/camunda.service';
-import CamundaRoutes from '../services/camunda.routes';
-import Utils from "../utils/utils";
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import {
   Link
 } from "react-router-dom";
+import TopMenu from '../components/TopMenu';
 import { SortBy, SortOrder } from '../services/camunda.enum';
+import CamundaRoutes from '../services/camunda.routes';
+import CamundaService from '../services/camunda.service';
+import Utils from "../utils/utils";
 
 interface SortOrderButtonInterface {
   sortOrder: SortOrder;
@@ -85,7 +85,7 @@ export default function ProcessInstanceList() {
     <>
       <TopMenu />
       <Container>
-        <h2>Process Instances ({processList.length})</h2>
+        <h2>Process Instances ({processList?.length})</h2>
         <Table striped bordered hover responsive>
           <thead>
             <tr>
@@ -99,23 +99,23 @@ export default function ProcessInstanceList() {
             </tr>
           </thead>
           <tbody>
-            {processList.map((item: any) => {
+            {processList?.map((item: any) => {
               return (
                 <tr key={item.id}>
                   <td><Link to={`/${item.id}/${item.businessKey}`}>{item.id}</Link></td>
                   <td>{getCustomDetailURL(item.businessKey)}</td>
-                  <td>{item?.processDefinitionKey}</td>
+                  <td>{item.processDefinitionKey}</td>
                   <td>{Utils.formatDate(item.startTime)}</td>
                   <td>{Utils.formatDate(item.endTime)}</td>
                   <td style={{ textAlign: 'right' }}>{item.durationInMillis / 1000}s</td>
                   <td>{item.state}</td>
                 </tr>
-          )
+              )
             })}
 
-        </tbody>
-      </Table>
-    </Container>
+          </tbody>
+        </Table>
+      </Container>
     </>
   )
 }
