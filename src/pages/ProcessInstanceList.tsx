@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Container, Table } from 'react-bootstrap';
 import TopMenu from '../components/TopMenu';
 import CamundaService from '../services/camunda.service';
@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { SortBy, SortOrder } from '../services/camunda.enum';
 
-interface SortOrderButtonInterface{
+interface SortOrderButtonInterface {
   sortOrder: SortOrder;
   onClick: any;
 }
@@ -26,7 +26,7 @@ const SortOrderButton = (props: SortOrderButtonInterface) => {
   )
 }
 
-export default function ProcessInstanceList(){
+export default function ProcessInstanceList() {
   const [processList, setProcessList] = useState([]);
   const [sortBy, setSortBy] = useState(SortBy.StartTime);
   const [sortOrder, setSortOrder] = useState(SortOrder.Descending);
@@ -58,15 +58,15 @@ export default function ProcessInstanceList(){
       default:
         break;
     }
-    
+
   }
 
   const getCustomDetailURL = (businessKey: string) => {
     const detailUrl = CamundaRoutes.getCustomDetailURL(businessKey);
-    if(detailUrl){
+    if (detailUrl) {
       return <a href={detailUrl} target="_blank" rel="noreferrer">{businessKey}</a>;
     }
-    else{
+    else {
       return businessKey;
     }
   }
@@ -74,7 +74,7 @@ export default function ProcessInstanceList(){
   useEffect(() => {
     const getProcessInstance = async (_sortBy: SortBy, _sortOrder: SortOrder) => {
       console.log('getProcessInstance', _sortBy, _sortOrder);
-      const resProcessInstance:any = await CamundaService.getProcessInstance('', _sortBy, _sortOrder);
+      const resProcessInstance: any = await CamundaService.getProcessInstance('', _sortBy, _sortOrder);
       setProcessList(resProcessInstance);
     }
 
@@ -91,6 +91,7 @@ export default function ProcessInstanceList(){
             <tr>
               <th>Process Instance ID</th>
               <th>Business Key</th>
+              <th>Definition Key</th>
               <th><SortOrderButton sortOrder={sortOrderStartTime} onClick={() => toggleSortOrder(SortBy.StartTime)} /> Start</th>
               <th><SortOrderButton sortOrder={sortOrderEndTime} onClick={() => toggleSortOrder(SortBy.EndTime)} /> End</th>
               <th><SortOrderButton sortOrder={sortOrderDuration} onClick={() => toggleSortOrder(SortBy.Duration)} /> Duration</th>
@@ -98,22 +99,23 @@ export default function ProcessInstanceList(){
             </tr>
           </thead>
           <tbody>
-            {processList.map((item:any) => {
+            {processList.map((item: any) => {
               return (
                 <tr key={item.id}>
                   <td><Link to={`/${item.id}/${item.businessKey}`}>{item.id}</Link></td>
                   <td>{getCustomDetailURL(item.businessKey)}</td>
+                  <td>{item?.processDefinitionKey}</td>
                   <td>{Utils.formatDate(item.startTime)}</td>
                   <td>{Utils.formatDate(item.endTime)}</td>
-                  <td style={{textAlign: 'right'}}>{item.durationInMillis/1000}s</td>
+                  <td style={{ textAlign: 'right' }}>{item.durationInMillis / 1000}s</td>
                   <td>{item.state}</td>
                 </tr>
-              )
+          )
             })}
-            
-          </tbody>
-        </Table>
-      </Container>
+
+        </tbody>
+      </Table>
+    </Container>
     </>
   )
 }
