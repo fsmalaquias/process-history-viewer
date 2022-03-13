@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Row, Table } from 'react-bootstrap';
+import { FaSearchPlus } from 'react-icons/fa';
 import 'react-notifications-component/dist/theme.css';
 import {
   useHistory, useParams
 } from "react-router-dom";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import TopMenu from '../components/TopMenu';
 import CamundaService from '../services/camunda.service';
 import Utils from "../utils/utils";
@@ -35,6 +38,10 @@ export default function ProcessInstanceDetail() {
     getActivityList(id);
 
   }, [id]);
+
+  const showValue = (value: any) => {
+    /* {item?.value ? JSON.stringify(item.value) : ''} */
+  }
 
   return (
     <>
@@ -89,11 +96,16 @@ export default function ProcessInstanceDetail() {
               return (
                 <tr key={item.id}>
                   <td>{item?.name}</td>
-                  <td>{item?.value ? JSON.stringify(item.value) : ''}</td>
+                  <td align='center'>
+                    {item.value ?
+                      (<Popup trigger={<Button><FaSearchPlus /> </Button>} modal>
+                        <textarea rows={20} cols={100} disabled value={JSON.stringify(item.value, undefined, 2)}></textarea>
+                      </Popup>) : ''
+                    }
+                  </td>
                 </tr>
               )
             })}
-
           </tbody>
         </Table>
       </Container>
