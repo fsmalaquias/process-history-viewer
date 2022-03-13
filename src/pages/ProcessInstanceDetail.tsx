@@ -24,14 +24,14 @@ export default function ProcessInstanceDetail() {
   useEffect(() => {
     const getActivityList = async (processInstanceId: string) => {
       const resActivityList: any = await CamundaService.getActivityList(processInstanceId);
-      console.log(resActivityList);
+      console.log('Activities: ', resActivityList);
       setActivityList(resActivityList);
       const resVariablesList: any = await CamundaService.getProcessInstanceVariables(processInstanceId);
-      console.log(resVariablesList);
+      console.log('Variables: ', resVariablesList);
       setVariablesList(resVariablesList);
     }
 
-    console.log(id);
+    console.log('ProcessInstanceId: ', id);
     getActivityList(id);
 
   }, [id]);

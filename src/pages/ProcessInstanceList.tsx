@@ -73,7 +73,7 @@ export default function ProcessInstanceList() {
 
   useEffect(() => {
     const getProcessInstance = async (_sortBy: SortBy, _sortOrder: SortOrder) => {
-      console.log('getProcessInstance', _sortBy, _sortOrder);
+      console.log('getProcessInstance: ', _sortBy, _sortOrder);
       const resProcessInstance: any = await CamundaService.getProcessInstance('', _sortBy, _sortOrder);
       setProcessList(resProcessInstance);
     }
