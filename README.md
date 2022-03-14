@@ -4,6 +4,11 @@ This project uses REST APIs from Camunda Community Edition for list and detail P
 
 https://docs.camunda.org/manual/7.15/reference/rest/
 
+## Highlights 14.02.2022
+
+- Error handling
+- Variable listing on Activity Details
+
 ## Run the Project
 
 In the project directory, you can run:
